@@ -15,6 +15,14 @@ class Graph {
         this.weights = weights;
     }
 
+    public int getHeight() {
+        return  height;
+    }
+
+    public int getWidth() {
+        return  width;
+    }
+
     /**
      * Zwraca liste wszystkich prawidlowych sasiadow
      *
@@ -23,12 +31,12 @@ class Graph {
      */
     List<Node> neighbours(Node node) {
         // Stworz liste wszystkich sasiadujacych wezlow
-        List<Node> results = Arrays.asList(
+        List<Node> results = new LinkedList<>(Arrays.asList(
                 new Node(node.x + 1, node.y),
                 new Node(node.x, node.y + 1),
                 new Node(node.x - 1, node.y),
                 new Node(node.x, node.y - 1)
-        );
+        ));
 
         // Odfiltruj wezly niemieszczace sie w grafie...
         results.removeIf(n -> !inBounds(n));
@@ -57,7 +65,7 @@ class Graph {
      * @param n Wezel do sprawdzenia
      * @return Czy na wezel n da sie wejsc
      */
-    private boolean isPassable(Node n) {
+    boolean isPassable(Node n) {
         return !walls.contains(n);
     }
 

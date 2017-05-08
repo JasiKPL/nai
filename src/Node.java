@@ -40,4 +40,14 @@ class Node {
         }
         return isEqual;
     }
+
+    /**
+     * Potrzebne do korzystania z HashMapy
+     * @return Unikalny hash obiektu
+     */
+    @Override
+    public int hashCode() {
+        // To jest bezpiecznie, bo przyjmujemy wylacznie x i y > 0
+        return Integer.parseInt(Integer.toString(x) + Integer.toString(y));
+    }
 }
