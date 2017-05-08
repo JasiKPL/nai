@@ -3,12 +3,12 @@ import java.util.List;
 
 
 class Graph {
-    List<Vertex> neighbours(Vertex v) {
+    List<Node> neighbours(Node n) {
         // TODO
         return new ArrayList<>();
     }
 
-    Float cost(Vertex current, Vertex next) {
+    Float cost(Node current, Node next) {
         // TODO
         return 0f;
     }

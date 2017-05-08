@@ -4,26 +4,26 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class AStar {
-    private float manhattanDistance(Vertex a, Vertex b) {
-        return Math.abs(a.point.x - b.point.x) + Math.abs(a.point.y - b.point.y);
+    private float manhattanDistance(Node a, Node b) {
+        return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
     }
 
-    public void search(Graph graph, Vertex start, Vertex goal) {
-        Queue<Vertex> frontier = new PriorityQueue<>();
+    public Map<Node, Node> search(Graph graph, Node start, Node goal) {
+        Queue<Node> frontier = new PriorityQueue<>();
         frontier.add(start);
-        Map<Vertex, Vertex> cameFrom = new HashMap<>();
-        Map<Vertex, Float> costSoFar = new HashMap<>();
+        Map<Node, Node> cameFrom = new HashMap<>();
+        Map<Node, Float> costSoFar = new HashMap<>();
         cameFrom.put(start, null);
         costSoFar.put(start, 0f);
 
         while (!frontier.isEmpty()) {
-            Vertex current = frontier.poll();
+            Node current = frontier.poll();
 
             if (current.equals(goal)) {
                 break;
             }
 
-            for(Vertex next : graph.neighbours(current)) {
+            for (Node next : graph.neighbours(current)) {
                 float newCost = costSoFar.get(current) + graph.cost(current, next);
                 if (costSoFar.containsKey(next) || newCost < costSoFar.get(next)) {
                     costSoFar.put(next, newCost);
@@ -33,6 +33,8 @@ public class AStar {
                 }
             }
         }
+
+        return cameFrom;
     }
 
 }
