@@ -68,9 +68,9 @@ public class AStar {
         Queue<Node> frontier = new PriorityQueue<>(Node.COMP_PRIORITY);
         frontier.add(start);
         Map<Node, Node> cameFrom = new HashMap<>();
-        Map<Node, Float> costSoFar = new HashMap<>();
+        Map<Node, Integer> costSoFar = new HashMap<>();
         cameFrom.put(start, null);
-        costSoFar.put(start, 0f);
+        costSoFar.put(start, 0);
 
         while (!frontier.isEmpty()) {
             Node current = frontier.poll();
@@ -80,7 +80,7 @@ public class AStar {
             }
 
             for (Node next : graph.neighbours(current)) {
-                float newCost = costSoFar.get(current) + graph.cost(current, next);
+                int newCost = (int) (costSoFar.get(current) + graph.cost(current, next));
                 if (!costSoFar.containsKey(next) || newCost < costSoFar.get(next)) {
                     costSoFar.put(next, newCost);
                     next.priority = newCost + manhattanDistance(goal, next);
@@ -95,9 +95,9 @@ public class AStar {
 
     class Result {
         Map<Node, Node> pointTo;
-        Map<Node, Float> moveCost;
+        Map<Node, Integer> moveCost;
 
-        Result(Map<Node, Node> pointTo, Map<Node, Float> moveCost) {
+        Result(Map<Node, Node> pointTo, Map<Node, Integer> moveCost) {
             this.pointTo = pointTo;
             this.moveCost = moveCost;
         }
@@ -132,11 +132,10 @@ public class AStar {
         void drawCost() {
             draw(node -> {
                 String s = null;
-                float cost = moveCost.getOrDefault(node, Float.MIN_VALUE);
-                if (cost != Float.MAX_VALUE) {
-                    s = Integer.toString((int) cost);
+                int cost = moveCost.getOrDefault(node, Integer.MIN_VALUE);
+                if (cost != Integer.MIN_VALUE) {
+                    s = Integer.toString(cost);
                 }
-
                 return s;
             });
         }
