@@ -2,12 +2,11 @@ import java.util.*;
 
 
 class Graph {
+    private final float DEFAULT_WEIGHT = 1;
     private Map<Node, Float> weights = new HashMap<>();
     private List<Node> walls = new ArrayList<>();
     private int width;
     private int height;
-
-    private final float DEFAULT_WEIGHT = 1;
 
     public Graph(int width, int height, List<Node> walls, Map<Node, Float> weights) {
         this.width = width;
@@ -18,6 +17,7 @@ class Graph {
 
     /**
      * Zwraca liste wszystkich prawidlowych sasiadow
+     *
      * @param node Wezel, ktorego sasiedzi maja byc zwroceni
      * @return Lista sasiadow, na ktorych mozna wejsc
      */
@@ -43,6 +43,7 @@ class Graph {
 
     /**
      * Sprawdza czy wezel zawiera sie w grafie
+     *
      * @param n Wezel do sprawdzenia
      * @return Czy wezel zawiera sie w grafie
      */
@@ -52,6 +53,7 @@ class Graph {
 
     /**
      * Sprawdza czy przez wezel n da sie przejsc
+     *
      * @param n Wezel do sprawdzenia
      * @return Czy na wezel n da sie wejsc
      */
