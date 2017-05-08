@@ -4,12 +4,23 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class AStar {
+
+    class Result {
+        Map<Node, Node> cameFrom;
+        Map<Node, Float> moveCost;
+
+        Result(Map<Node, Node> cameFrom, Map<Node, Float> moveCost) {
+            this.cameFrom = cameFrom;
+            this.moveCost = moveCost;
+        }
+    }
+
     private float manhattanDistance(Node a, Node b) {
         return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
     }
 
-    public Map<Node, Node> search(Graph graph, Node start, Node goal) {
-        Queue<Node> frontier = new PriorityQueue<>();
+    public Result search(Graph graph, Node start, Node goal) {
+        Queue<Node> frontier = new PriorityQueue<>(Node.COMP_PRIORITY);
         frontier.add(start);
         Map<Node, Node> cameFrom = new HashMap<>();
         Map<Node, Float> costSoFar = new HashMap<>();
@@ -34,7 +45,7 @@ public class AStar {
             }
         }
 
-        return cameFrom;
+        return new Result(cameFrom, costSoFar);
     }
 
 }
