@@ -14,6 +14,7 @@ public class AStar {
     }
 
     public static void main(String[] args) {
+        // Na te pola nie bedzie mozna wejsc
         ArrayList<Node> walls = new ArrayList<>(Arrays.asList(
                 new Node(1, 7),
                 new Node(1, 8),
@@ -22,7 +23,8 @@ public class AStar {
                 new Node(3, 7),
                 new Node(3, 8))
         );
-        Map<Node, Float> weights = new HashMap<>();
+
+        // Te pola beda trudniejsze do wejscia (np. gory albo bagno)
         List<Node> hardTerrain = new ArrayList<>(Arrays.asList(
                 new Node(3, 4), new Node(3, 5), new Node(4, 1), new Node(4, 2),
                 new Node(4, 3), new Node(4, 4), new Node(4, 5), new Node(4, 6),
@@ -32,8 +34,9 @@ public class AStar {
                 new Node(6, 4), new Node(6, 5), new Node(6, 6), new Node(6, 7),
                 new Node(7, 3), new Node(7, 4), new Node(7, 5))
         );
+        Map<Node, Integer> weights = new HashMap<>();
         for (Node t : hardTerrain) {
-            weights.put(t, 5f);
+            weights.put(t, 5); // wszystkie trudne pola maja wage 5, ale moglyby miec rozne
         }
 
         Graph graph = new Graph(10, 10, walls, weights);

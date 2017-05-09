@@ -1,14 +1,17 @@
 import java.util.*;
 
-
+/**
+ * Reprezentacja grafu. Nalezy go traktowac jako mape o rozmiarze width x height,
+ * gdzie na kazde pole (z wyjatkiem scian) mozna wejsc.
+ */
 class Graph {
-    private final float DEFAULT_WEIGHT = 1;
-    private Map<Node, Float> weights = new HashMap<>();
+    private final int DEFAULT_WEIGHT = 1;
+    private Map<Node, Integer> weights = new HashMap<>();
     private List<Node> walls = new ArrayList<>();
     private int width;
     private int height;
 
-    public Graph(int width, int height, List<Node> walls, Map<Node, Float> weights) {
+    public Graph(int width, int height, List<Node> walls, Map<Node, Integer> weights) {
         this.width = width;
         this.height = height;
         this.walls = walls;
@@ -16,11 +19,11 @@ class Graph {
     }
 
     public int getHeight() {
-        return  height;
+        return height;
     }
 
     public int getWidth() {
-        return  width;
+        return width;
     }
 
     /**
@@ -45,7 +48,7 @@ class Graph {
         return results;
     }
 
-    Float cost(Node fromNode, Node toNode) {
+    int cost(Node fromNode, Node toNode) {
         return weights.getOrDefault(toNode, DEFAULT_WEIGHT);
     }
 
@@ -68,5 +71,4 @@ class Graph {
     boolean isPassable(Node n) {
         return !walls.contains(n);
     }
-
 }
