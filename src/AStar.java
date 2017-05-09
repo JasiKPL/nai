@@ -42,10 +42,12 @@ public class AStar {
         Graph graph = new Graph(10, 10, walls, weights);
         AStar aStar = new AStar(graph, new Node(1, 4), new Node(7, 8));
         AStar.Result result = aStar.search();
-        System.out.println("Sciezka przejscia: ");
-        result.drawPath();
+        System.out.println("Wyznaczone kierunki: ");
+        result.drawDirections();
         System.out.println("\nWartosc przejscia: ");
         result.drawCost();
+        System.out.println("\nSciezka przejscia: ");
+        result.drawPath();
     }
 
     /**
@@ -106,9 +108,33 @@ public class AStar {
         }
 
         /**
-         * Wypisz wyliczone sciezki
+         * Wypisz znaleziona sciezke
          */
         void drawPath() {
+            Node current = goal;
+            List<Node> path = new ArrayList<>();
+            path.add(goal);
+
+            while (!current.equals(start)) {
+                current = pointTo.get(current);
+                path.add(current);
+            }
+            path.add(start);
+            Collections.reverse(path);
+
+            draw(node -> {
+                String s = null;
+                if (path.contains(node)) {
+                    s = "@";
+                }
+                return s;
+            });
+        }
+
+        /**
+         * Wypisz wyliczone kierunki
+         */
+        void drawDirections() {
             draw(node -> {
                 String s = null;
                 Node pointed = pointTo.getOrDefault(node, null);
