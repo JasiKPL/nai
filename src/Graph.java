@@ -3,6 +3,8 @@ import java.util.*;
 /**
  * Reprezentacja grafu. Nalezy go traktowac jako mape o rozmiarze width x height,
  * gdzie na kazde pole (z wyjatkiem scian) mozna wejsc.
+ *
+ * UWAGA. Brak sprawdzania, czy wszsytkie wspolrzedne sa calkowite  i > 0.
  */
 class Graph {
     private final int DEFAULT_WEIGHT = 1;
@@ -58,7 +60,7 @@ class Graph {
      * @param n Wezel do sprawdzenia
      * @return Czy wezel zawiera sie w grafie
      */
-    private boolean inBounds(Node n) {
+    boolean inBounds(Node n) {
         return 0 <= n.x && n.x < width && 0 <= n.y && n.y < height;
     }
 

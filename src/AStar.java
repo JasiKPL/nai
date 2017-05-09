@@ -8,6 +8,13 @@ public class AStar {
     private Node goal;
 
     public AStar(Graph graph, Node start, Node goal) {
+        if (!graph.isPassable(start) || !graph.inBounds(start)) {
+            throw new IllegalArgumentException("Start node is wrong");
+        }
+        if (!graph.isPassable(goal) || !graph.inBounds(goal)) {
+            throw new IllegalArgumentException("Goal node is wrong");
+        }
+
         this.graph = graph;
         this.start = start;
         this.goal = goal;
@@ -64,9 +71,6 @@ public class AStar {
     /**
      * Implementacja algorytmu A*
      *
-     * @param graph Graf zrodlowy
-     * @param start Wezel startowy
-     * @param goal  Wezel docelowy
      * @return Kierunek i koszt poruszania
      */
     Result search() {
@@ -99,7 +103,13 @@ public class AStar {
     }
 
     class Result {
+        /**
+         * Trzyma informacje ktory wezel (wartosc HashMapy) prowadzi do zadanego (klucz HashMapy)
+         */
         Map<Node, Node> pointTo;
+        /**
+         * Przechowuje calkowity kosz dostania sie do zadanego wezla
+         */
         Map<Node, Integer> moveCost;
 
         Result(Map<Node, Node> pointTo, Map<Node, Integer> moveCost) {
@@ -108,9 +118,11 @@ public class AStar {
         }
 
         /**
-         * Wypisz znaleziona sciezke
+         * Wypisz znaleziona sciezke za pomoca @
          */
         void drawPath() {
+
+            // Trzeba odtworzyc sciezke poruszania sie od ostatniego do pierwszego wezla
             Node current = goal;
             List<Node> path = new ArrayList<>();
             path.add(goal);
@@ -132,7 +144,7 @@ public class AStar {
         }
 
         /**
-         * Wypisz wyliczone kierunki
+         * Wypisz wyliczone kierunki za pomoca strzalek
          */
         void drawDirections() {
             draw(node -> {
@@ -156,7 +168,7 @@ public class AStar {
         }
 
         /**
-         * Wypisz wyliczony koszt
+         * Wypisz wyliczony koszt liczbowy
          */
         void drawCost() {
             draw(node -> {
